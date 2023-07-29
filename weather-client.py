@@ -39,7 +39,8 @@ def update(env_vars):
     # Prepare request
     json_data = json.dumps(weather_entry)
     headers = {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "x-api-key": env_vars.get("SERVER_APIKEY")
     }
 
     # POST it to the server
