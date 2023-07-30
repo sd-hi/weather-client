@@ -1,0 +1,22 @@
+[Unit]
+Description=weather-client Service
+After=network.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/weather-client
+ExecStartPre=/bin/sleep 10
+ExecStart=/usr/bin/python3 /home/pi/weather-client/weather-client.py
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
+# This is an example systemd service which can be used to run weather-client in background
+# Copy this file into /etc/systemd/system/ then run following commands
+#
+# sudo systemctl daemon-reload
+# sudo systemctl start weather-client.service
+#
+# The script will start, and will resume execution on reboot
