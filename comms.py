@@ -54,7 +54,7 @@ def submit_readings_to_server(env_vars, weather_readings):
     }
 
     # get URL to send message to
-    url = get_server_url(env_vars, "weather")
+    url = get_server_url(env_vars, "temperatures")
     readings_count = len(weather_readings)
     print(f"Submitting {readings_count} reading{'s' if readings_count != 1 else ''} to {url}...")
 
