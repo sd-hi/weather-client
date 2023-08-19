@@ -10,8 +10,14 @@ from globals.const import *
 
 def get_server_url(env_vars, endpoint):
     # get url to send readings to
+    
+    port = env_vars.get(ENV_SERVER_PORT)
+    if port == "":
+        # default to port 80 if unspecified
+        port = 80
+
     url = urljoin(
-        base=f"{env_vars.get(ENV_SERVER_URL)}:{env_vars.get(ENV_SERVER_PORT)}",
+        base=f"{env_vars.get(ENV_SERVER_URL)}:{port}",
         url=endpoint
         )
 

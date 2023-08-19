@@ -16,12 +16,12 @@ ENV_PATH=".env" # path to environment variable file
 def get_weather_reading(env_vars):
     # obtain a weather reading from the configured device
     
-    sensor_type = env_vars.get("SENSOR_TYPE")
-    if sensor_type == "AHTx0":
+    sensor_type = env_vars.get(ENV_SENSOR_TYPE)
+    if sensor_type == SENSORTYPE_AHTX0:
         # pull weather reading from AHTx0 sensor
         weather_reading = get_weather_ahtx0()
     
-    elif sensor_type == "TEST":
+    elif sensor_type == SENSORTYPE_TEST:
         # simulate a sensor with random numbers
         weather_reading = get_weather_test()
 
@@ -35,11 +35,13 @@ def get_weather_reading(env_vars):
     return weather_reading 
 
 def main():
+    # main execution loop
+
     weather_readings = [] # cache of collected weather readings
     time_last_submitted = None # the last time readings were submitted
     
     # Set up application
-    env_vars = read_env_file(ENV_PATH)
+    env_vars = read_environment_variables(ENV_PATH)
 
     # Announce start
     poll_interval = float(env_vars.get(ENV_POLL_INTERVAL))
@@ -62,7 +64,7 @@ def main():
         if not time_last_submitted:
             # submit first reading to server as a test
             submit_now = True
-            
+
         elif (time_current - time_last_submitted).seconds > submit_interval:
             # enough time has passed that we should submit to server now
             submit_now = True
@@ -79,4 +81,6 @@ def main():
         time.sleep(poll_interval)
 
 if __name__ == "__main__":
+    # main entry point
+
     main()
